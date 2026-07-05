@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "b5d8d383-c29b-4c69-8287-70fea516a4d4",
-    "name": "E-Commerce REST API",
+    "_postman_id": "d092c042-a5d8-43a3-8184-d56e4cdf2632",
+    "name": "E-Commerce REST API Copy",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "55897825",
-    "_collection_link": "https://go.postman.co/collection/55897825-b5d8d383-c29b-4c69-8287-70fea516a4d4?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/55897825-d092c042-a5d8-43a3-8184-d56e4cdf2632?source=collection_link"
   },
   "item": [
     {
@@ -17,7 +17,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\": \"Samsung Galaxy S25\",\r\n    \"price\": 16000,\r\n    \"category\": \"6a46b43ce34865ad6e083171\",\r\n    \"inStock\": false\r\n}",
+              "raw": "{\r\n  \"name\": \"Gaming Mouse Pro\",\r\n  \"price\": 99.99,\r\n  \"category\": \"{{categoryId}}\",\r\n  \"inStock\": false\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -25,16 +25,13 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/api/products/6a46b43ce34865ad6e083176",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/products/{{productId}}",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
                 "products",
-                "6a46b43ce34865ad6e083176"
+                "{{productId}}"
               ]
             }
           },
@@ -46,16 +43,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:5000/api/products/6a46b43ce34865ad6e083177",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/products/{{productId}}",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
                 "products",
-                "6a46b43ce34865ad6e083177"
+                "{{productId}}"
               ]
             }
           },
@@ -68,7 +62,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"name\": \"boxing gloves\",\r\n  \"price\": 70,\r\n  \"category\": \"6a46b43ce34865ad6e083174\",\r\n  \"inStock\": true\r\n}",
+              "raw": "{\r\n  \"name\": \"Gaming Mouse\",\r\n  \"price\": 89.99,\r\n  \"category\": \"{{categoryId}}\",\r\n  \"inStock\": true\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -76,14 +70,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/api/products",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/products",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
                 "products"
               ]
             }
@@ -96,16 +87,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:5000/api/products/6a48f35785932f079567053b",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/products/{{productId}}",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
                 "products",
-                "6a48f35785932f079567053b"
+                "{{productId}}"
               ]
             }
           },
@@ -129,14 +117,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/api/products",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/products",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
                 "products"
               ]
             }
@@ -154,16 +139,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:5000/api/categories/6a46b43ce34865ad6e083171",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/categories/{{categoryId}}",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
                 "categories",
-                "6a46b43ce34865ad6e083171"
+                "{{categoryId}}"
               ]
             }
           },
@@ -187,16 +169,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/api/categories/",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/categories",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
-                "categories",
-                ""
+                "categories"
               ]
             }
           },
@@ -209,7 +187,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "",
+              "raw": "{\r\n  \"name\": \"Furniture\",\r\n  \"description\": \"Updated furniture category\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -217,22 +195,13 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/api/categories/:id",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/categories/{{categoryId}}",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
                 "categories",
-                ":id"
-              ],
-              "variable": [
-                {
-                  "key": "id",
-                  "value": ""
-                }
+                "{{categoryId}}"
               ]
             }
           },
@@ -245,7 +214,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\": \"Gaming\",\r\n    \"description\": \"Gaming consoles and accessories\"\r\n}",
+              "raw": "{\r\n  \"name\": \"Gaming\",\r\n  \"description\": \"Gaming PCs, laptops, consoles, and accessories\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -253,14 +222,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/api/categories",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/categories",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
                 "categories"
               ]
             }
@@ -273,22 +239,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:5000/api/categories/:id",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/categories/{{categoryId}}",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
                 "categories",
-                ":id"
-              ],
-              "variable": [
-                {
-                  "key": "id",
-                  "value": ""
-                }
+                "{{categoryId}}"
               ]
             }
           },
@@ -303,7 +260,16 @@
           "name": "get cart",
           "request": {
             "method": "GET",
-            "header": []
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cart",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cart"
+              ]
+            }
           },
           "response": []
         },
@@ -314,7 +280,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"productId\": \"6a46b43ce34865ad6e083177\",\r\n    \"quantity\": 2\r\n}",
+              "raw": "{\r\n    \"productId\": \"6a4a4ede0d6234e85c7e3b8e\",\r\n    \"quantity\": 2\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -322,14 +288,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/api/cart",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/cart",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
                 "cart"
               ]
             }
@@ -343,7 +306,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"quantity\": 5\r\n}",
+              "raw": "{\r\n    \"productId\": \"6a4a4ede0d6234e85c7e3b8e\",\r\n    \"quantity\": 5\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -351,16 +314,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/api/cart/6a46b43ce34865ad6e083177",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/cart",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
-                "cart",
-                "6a46b43ce34865ad6e083177"
+                "cart"
               ]
             }
           },
@@ -372,14 +331,11 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:5000/api/cart",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/cart",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
                 "cart"
               ]
             }
@@ -392,16 +348,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:5000/api/cart/6a46b43ce34865ad6e083177",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/cart/{{productId}}",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
                 "cart",
-                "6a46b43ce34865ad6e083177"
+                "{{productId}}"
               ]
             }
           },
@@ -418,14 +371,11 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:5000/api/orders",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/orders",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
                 "orders"
               ]
             }
@@ -439,7 +389,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "",
+              "raw": "{}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -447,14 +397,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/api/orders",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/orders",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
                 "orders"
               ]
             }
@@ -468,7 +415,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"status\": \"Processing\"\r\n}",
+              "raw": "{\r\n  \"status\": \"Delivered\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -476,16 +423,49 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/api/cart/id",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/orders/{{orderId}}",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
-                "api",
-                "cart",
-                "id"
+                "orders",
+                "{{orderId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/orders/{{orderId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "{{orderId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete order",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/orders/{{orderId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "{{orderId}}"
               ]
             }
           },
