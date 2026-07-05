@@ -110,9 +110,7 @@ const productData = [
     category: "Sports",
     inStock: true,
   },
-  // ======================
-// Additional Electronics
-// ======================
+  
 {
   name: "Apple AirPods Pro",
   price: 249,
@@ -132,9 +130,7 @@ const productData = [
   inStock: false,
 },
 
-// ======================
-// Additional Clothing
-// ======================
+
 {
   name: "Levi's 501 Jeans",
   price: 75,
@@ -154,9 +150,6 @@ const productData = [
   inStock: false,
 },
 
-// ======================
-// Additional Books
-// ======================
 {
   name: "Atomic Habits",
   price: 28,
@@ -176,9 +169,7 @@ const productData = [
   inStock: false,
 },
 
-// ======================
-// Additional Sports
-// ======================
+
 {
   name: "Basketball",
   price: 30,
