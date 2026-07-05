@@ -110,6 +110,93 @@ const productData = [
     category: "Sports",
     inStock: true,
   },
+  // ======================
+// Additional Electronics
+// ======================
+{
+  name: "Apple AirPods Pro",
+  price: 249,
+  category: "Electronics & Accessories",
+  inStock: true,
+},
+{
+  name: "Logitech MX Master 3S",
+  price: 99,
+  category: "Electronics & Accessories",
+  inStock: true,
+},
+{
+  name: "Samsung 27-inch Monitor",
+  price: 320,
+  category: "Electronics & Accessories",
+  inStock: false,
+},
+
+// ======================
+// Additional Clothing
+// ======================
+{
+  name: "Levi's 501 Jeans",
+  price: 75,
+  category: "Clothing",
+  inStock: true,
+},
+{
+  name: "Puma Running Shoes",
+  price: 95,
+  category: "Clothing",
+  inStock: true,
+},
+{
+  name: "Under Armour Jacket",
+  price: 120,
+  category: "Clothing",
+  inStock: false,
+},
+
+// ======================
+// Additional Books
+// ======================
+{
+  name: "Atomic Habits",
+  price: 28,
+  category: "Books",
+  inStock: true,
+},
+{
+  name: "Deep Work",
+  price: 32,
+  category: "Books",
+  inStock: true,
+},
+{
+  name: "Design Patterns",
+  price: 55,
+  category: "Books",
+  inStock: false,
+},
+
+// ======================
+// Additional Sports
+// ======================
+{
+  name: "Basketball",
+  price: 30,
+  category: "Sports",
+  inStock: true,
+},
+{
+  name: "Yoga Mat",
+  price: 25,
+  category: "Sports",
+  inStock: true,
+},
+{
+  name: "Dumbbell Set",
+  price: 110,
+  category: "Sports",
+  inStock: false,
+},
 ];
 
 // ======================
