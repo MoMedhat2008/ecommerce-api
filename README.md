@@ -1,14 +1,31 @@
 # 🛒 E-Commerce REST API
 
-This is a backend **E-Commerce REST API** built using **Node.js**, **Express.js**, and **MongoDB**. The project follows the **MVC (Model-View-Controller)** architecture and includes APIs for managing products, categories, shopping carts, and orders.
+A backend **E-Commerce REST API** built using **Node.js**, **Express.js**, and **MongoDB**.
 
-The goal of this project was to practice building a real-world REST API while applying concepts like CRUD operations, MongoDB relationships, filtering, searching, sorting, pagination, and error handling.
+The project follows the **MVC (Model-View-Controller)** architecture and provides APIs for managing:
+
+- Products
+- Categories
+- Shopping Cart
+- Orders
+
+The goal of this project was to practice building a real-world REST API while applying backend concepts such as:
+
+- CRUD operations
+- MongoDB relationships
+- Mongoose models
+- Search
+- Filtering
+- Sorting
+- Pagination
+- Error handling
+- Reusable utility functions
 
 ---
 
-## 🔗 GitHub Repository
+# 🔗 GitHub Repository
 
-Repository Link:
+Repository:
 
 https://github.com/MoMedhat2008/ecommerce-api
 
@@ -31,92 +48,232 @@ https://github.com/MoMedhat2008/ecommerce-api
 # 📂 Project Structure
 
 ```text
-config/
-controllers/
-middleware/
-models/
-routes/
-seed/
-server.js
-package.json
-README.md
+E-Commerce REST API
+
+│
+├── controllers/
+│   └── productController.js
+│
+├── db/
+│   └── Database connection files
+│
+├── middleware/
+│   └── error.js
+│
+├── models/
+│   ├── Product.js
+│   ├── Category.js
+│   ├── Cart.js
+│   └── Order.js
+│
+├── routes/
+│   ├── productRoutes.js
+│   ├── categoryRoutes.js
+│   ├── cartRoutes.js
+│   └── orderRoutes.js
+│
+├── seed/
+│   └── seed.js
+│
+├── utils/
+│   ├── AppError.js
+│   └── asyncHandler.js
+│
+├── .env
+├── .env.example
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── server.js
+└── README.md
 ```
 
-### Folder Responsibilities
+---
 
-- **Models** → Define database schemas (Category, Product, Cart, Order).
-- **Controllers** → Contain application logic and business rules.
-- **Routes** → Define API endpoints.
-- **Middleware** → Handle centralized errors and other middleware functions.
-- **Config** → Contains MongoDB connection setup.
-- **Seed** → Insert sample categories and products into the database.
+# 📁 Folder Responsibilities
+
+## Controllers
+
+Contains the application logic and handles requests/responses.
+
+Example:
+
+- Product operations
+- Database queries
+- Business logic
+
+---
+
+## Models
+
+Contains MongoDB schemas using Mongoose.
+
+Current models:
+
+- Product
+- Category
+- Cart
+- Order
+
+Models define:
+
+- Database structure
+- Relationships
+- Data validation
+
+---
+
+## Routes
+
+Contains all API endpoints and connects routes with controllers.
+
+Available routes:
+
+- Product routes
+- Category routes
+- Cart routes
+- Order routes
+
+---
+
+## Middleware
+
+Contains reusable middleware functions.
+
+Current middleware:
+
+- `error.js`
+
+Responsible for centralized error handling.
+
+---
+
+## Utils
+
+Contains reusable helper functions.
+
+Current utilities:
+
+### asyncHandler.js
+
+Used to handle asynchronous controller errors without repeating `try/catch`.
+
+### AppError.js
+
+Custom error class used for creating application-specific errors.
+
+---
+
+## DB
+
+Contains MongoDB connection configuration.
+
+Responsible for connecting the application with MongoDB database.
+
+---
+
+## Seed
+
+Contains database seed files.
+
+Used to insert sample:
+
+- Categories
+- Products
+
+into MongoDB.
 
 ---
 
 # ✨ Features
 
-## 📁 Categories
+# 📁 Categories
 
-- Create a category
+Features:
+
+- Create category
 - Get all categories
 - Get category by ID
 - Update category
 - Delete category
-- Prevent deleting categories that still contain active products
 
 ---
 
-## 📦 Products
+# 📦 Products
+
+Features:
 
 - Create product
 - Get all products
-- Get single product
+- Get product by ID
 - Update product
 - Delete product
 
-### Additional Features
+---
 
-- 🔍 Search products by name
+# 🔍 Product Advanced Features
 
-Example:
+## Search Products
 
-```
+Search by product name:
+
+```http
 GET /api/products?keyword=mac
 ```
 
-- 🗂 Filter products by category
+---
 
-```
+## Filter Products
+
+Filter by category:
+
+```http
 GET /api/products?category=<categoryId>
 ```
 
-- 📦 Filter by stock availability
+Filter by stock:
 
-```
+```http
 GET /api/products?inStock=true
 ```
 
-- ↕️ Sort products
+---
+
+## Sort Products
 
 Ascending:
 
-```
+```http
 GET /api/products?sort=price
 ```
 
 Descending:
 
-```
+```http
 GET /api/products?sort=-price
 ```
 
-- 📄 Pagination
+---
 
-```
+## Pagination
+
+Example:
+
+```http
 GET /api/products?page=1&limit=5
 ```
 
-- Populate category information using Mongoose `populate()`
+---
+
+## Populate Relationships
+
+Uses Mongoose:
+
+```javascript
+populate()
+```
+
+to return related category information.
 
 ---
 
@@ -125,10 +282,11 @@ GET /api/products?page=1&limit=5
 Features:
 
 - Add products to cart
-- Validate inventory before adding products
-- View cart with calculated total price
-- Update product quantity
-- Remove product from cart
+- Validate product availability
+- View cart items
+- Calculate total price
+- Update quantity
+- Remove products
 - Clear cart
 
 ---
@@ -138,18 +296,18 @@ Features:
 Features:
 
 - Create order from cart
-- Check product stock before checkout
-- Deduct inventory after successful order
-- Automatically clear cart after checkout
+- Check product stock
+- Deduct inventory after checkout
+- Clear cart after successful order
 - Get all orders
-- Get single order details
+- Get order details
 - Update order status
 
 ---
 
 # 🚀 Getting Started
 
-## 1. Clone Repository
+## Clone Repository
 
 ```bash
 git clone https://github.com/MoMedhat2008/ecommerce-api.git
@@ -157,7 +315,7 @@ git clone https://github.com/MoMedhat2008/ecommerce-api.git
 
 ---
 
-## 2. Enter Project Folder
+## Enter Project Folder
 
 ```bash
 cd ecommerce-api
@@ -165,7 +323,7 @@ cd ecommerce-api
 
 ---
 
-## 3. Install Dependencies
+## Install Dependencies
 
 ```bash
 npm install
@@ -173,26 +331,27 @@ npm install
 
 ---
 
-## 4. Environment Variables
+## Environment Variables
 
 Create a `.env` file:
 
 ```env
 PORT=5000
+
 MONGO_URI=your_mongodb_connection_string
 ```
 
 ---
 
-## 5. Run Application
+## Run Server
 
-Development mode:
+Development:
 
 ```bash
 npm run dev
 ```
 
-Normal mode:
+Production:
 
 ```bash
 npm start
@@ -202,7 +361,7 @@ npm start
 
 # 🌱 Seed Database
 
-To insert sample categories and products:
+To insert sample data:
 
 ```bash
 npm run seed
@@ -265,14 +424,15 @@ PATCH   /api/orders/:id
 
 # 📬 Testing
 
-All API requests are available in the Postman collection inside the repository.
+All API endpoints were tested using **Postman**.
 
-Steps:
+Testing includes:
 
-1. Open Postman
-2. Import the collection
-3. Test each endpoint
-4. Check responses and status codes
+- Successful requests
+- Invalid data testing
+- Error handling
+- CRUD operations
+- Query features
 
 ---
 
@@ -280,20 +440,23 @@ Steps:
 
 During this project, I practiced:
 
-- Building RESTful APIs using Express.js
-- Connecting applications with MongoDB
-- Using Mongoose models and schemas
+- Building REST APIs using Express.js
+- Connecting MongoDB with Mongoose
+- Designing database schemas
 - Applying MVC architecture
 - Creating CRUD operations
-- Using MongoDB references and `populate()`
+- Working with MongoDB relationships
+- Using Mongoose `populate()`
 - Implementing:
   - Search
   - Filtering
   - Sorting
   - Pagination
-- Handling errors using Express Async Handler
-- Building shopping cart and order workflows
-- Using Git and GitHub for version control
+- Creating reusable utilities
+- Handling errors professionally
+- Managing shopping cart logic
+- Building order workflows
+- Using Git and GitHub
 
 ---
 
@@ -308,3 +471,5 @@ https://github.com/MoMedhat2008
 Repository:
 
 https://github.com/MoMedhat2008/ecommerce-api
+
+Thank You for Reading
