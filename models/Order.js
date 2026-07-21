@@ -6,11 +6,15 @@ const orderItemSchema = new mongoose.Schema({
     ref: "Product",
     required: true,
   },
-  quantity: {
-    type: Number,
+  name: {
+    type: String,
     required: true,
   },
   price: {
+    type: Number,
+    required: true,
+  },
+  quantity: {
     type: Number,
     required: true,
   },
@@ -18,23 +22,27 @@ const orderItemSchema = new mongoose.Schema({
 
 const orderSchema = new mongoose.Schema(
   {
+    orderNumber: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     items: [orderItemSchema],
-
     totalPrice: {
       type: Number,
       required: true,
-      default: 0,
     },
-
     status: {
       type: String,
-      enum: ["Pending", "Processing", "Shipped", "Delivered"],
-      default: "Pending",
+      enum: ["pending", "confirmed", "shipped", "delivered", "cancelled"],
+      default: "pending",
+    },
+    shippingAddress: {
+      type: String,
+      required: [true, "Shipping address is required"],
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Order", orderSchema);

@@ -10,12 +10,21 @@ const categorySchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      default: "",
+      trim: true,
+    },
+    slug: {
+      type: String,
+      lowercase: true,
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
+
+categorySchema.pre("save", function (next) {
+  if (this.name) {
+    this.slug = this.name.toLowerCase().replace(/[^a-zA-Z0-0]/g, "-");
+  }
+  next();
+});
 
 module.exports = mongoose.model("Category", categorySchema);

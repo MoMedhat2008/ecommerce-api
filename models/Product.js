@@ -8,7 +8,8 @@ const productSchema = new mongoose.Schema({
   },
   price: {
     type: Number,
-    required: [true, 'Please add a product price']
+    required: [true, 'Please add a product price'],
+    min: [0, 'Price cannot be negative']
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,

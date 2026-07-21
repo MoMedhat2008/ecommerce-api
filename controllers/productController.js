@@ -1,132 +1,149 @@
 const Product = require("../models/Product");
 const Category = require("../models/Category");
-const asyncHandler = require("express-async-handler");
+const asyncHandler = require("../utils/asyncHandler");
+const AppError = require("../utils/AppError");
 
-// @desc    Get all products
+// @desc    Get all products (with filtering, sorting, and pagination)
 // @route   GET /api/products
-exports.getProducts = asyncHandler(async (req, res) => {
+exports.getProducts = asyncHandler(async (req, res, next) => {
+  const { category, minPrice, maxPrice, inStock, keyword, sort, page = 1, limit = 10 } = req.query;
   let query = {};
 
-  // Filter by category
-  if (req.query.category) {
-    query.category = req.query.category;
+  // Filter by Category
+  if (category) {
+    query.category = category;
   }
 
-  // Filter by stock
-  if (req.query.inStock !== undefined) {
-    query.inStock = req.query.inStock === "true";
+  // Filter by Price Range
+  if (minPrice || maxPrice) {
+    query.price = {};
+    if (minPrice) query.price.$gte = Number(minPrice);
+    if (maxPrice) query.price.$lte = Number(maxPrice);
   }
 
-  // Search by product name
-  if (req.query.keyword) {
-    query.name = {
-      $regex: req.query.keyword,
-      $options: "i",
-    };
+  // Filter by Stock Status
+  if (inStock !== undefined) {
+    query.inStock = inStock === "true";
   }
 
-  let productsQuery = Product.find(query).populate("category");
-
-  // Sorting
-  if (req.query.sort) {
-    productsQuery = productsQuery.sort(req.query.sort);
+  // Search Keyword (Name or Description)
+  if (keyword) {
+    query.$or = [
+      { name: { $regex: keyword, $options: "i" } },
+      { description: { $regex: keyword, $options: "i" } },
+    ];
   }
 
-  // Pagination
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 100;
-  const skip = (page - 1) * limit;
+  // Pagination Math
+  const pageNum = Math.max(1, parseInt(page, 10));
+  const limitNum = Math.max(1, parseInt(limit, 10));
+  const skip = (pageNum - 1) * limitNum;
 
-  productsQuery = productsQuery.skip(skip).limit(limit);
+  // Build Query
+  let productsQuery = Product.find(query)
+    .populate("category", "name description slug")
+    .skip(skip)
+    .limit(limitNum);
 
+  // Apply Sorting (Default to newest first)
+  if (sort) {
+    const sortBy = sort.split(",").join(" ");
+    productsQuery = productsQuery.sort(sortBy);
+  } else {
+    productsQuery = productsQuery.sort("-createdAt");
+  }
+
+  // Execute Query & Count
+  const totalProducts = await Product.countDocuments(query);
   const products = await productsQuery;
 
   res.status(200).json({
-    success: true,
-    count: products.length,
+    status: "success",
+    message: "Products fetched successfully",
+    results: products.length,
+    pagination: {
+      total: totalProducts,
+      page: pageNum,
+      pages: Math.ceil(totalProducts / limitNum),
+      limit: limitNum,
+    },
     data: products,
   });
 });
 
-// @desc    Get single product
+// @desc    Get single product by ID
 // @route   GET /api/products/:id
-exports.getProduct = asyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id).populate("category");
+exports.getProduct = asyncHandler(async (req, res, next) => {
+  const product = await Product.findById(req.params.id).populate("category", "name description slug");
 
   if (!product) {
-    res.status(404);
-    throw new Error("Product not found");
+    return next(new AppError("Product not found", 404));
   }
 
   res.status(200).json({
-    success: true,
+    status: "success",
+    message: "Product fetched successfully",
     data: product,
   });
 });
 
-// @desc    Create a product
+// @desc    Create a new product
 // @route   POST /api/products
-exports.createProduct = asyncHandler(async (req, res) => {
+exports.createProduct = asyncHandler(async (req, res, next) => {
+  // Validate Category Existence
   const category = await Category.findById(req.body.category);
-
   if (!category) {
-    res.status(404);
-    throw new Error("Category not found");
+    return next(new AppError("Referenced category does not exist", 404));
   }
 
   const product = await Product.create(req.body);
 
   res.status(201).json({
-    success: true,
+    status: "success",
+    message: "Product created successfully",
     data: product,
   });
 });
 
-// @desc    Update a product
+// @desc    Update an existing product
 // @route   PUT /api/products/:id
-exports.updateProduct = asyncHandler(async (req, res) => {
-  // If category is being updated, make sure it exists
+exports.updateProduct = asyncHandler(async (req, res, next) => {
+  // If Category is being updated, validate existence
   if (req.body.category) {
     const category = await Category.findById(req.body.category);
-
     if (!category) {
-      res.status(404);
-      throw new Error("Category not found");
+      return next(new AppError("Referenced category does not exist", 404));
     }
   }
 
-  const product = await Product.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    {
-      new: true,
-      runValidators: true,
-    }
-  ).populate("category");
+  const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  }).populate("category", "name description slug");
 
   if (!product) {
-    res.status(404);
-    throw new Error("Product not found");
+    return next(new AppError("Product not found", 404));
   }
 
   res.status(200).json({
-    success: true,
+    status: "success",
+    message: "Product updated successfully",
     data: product,
   });
 });
 
 // @desc    Delete a product
 // @route   DELETE /api/products/:id
-exports.deleteProduct = asyncHandler(async (req, res) => {
+exports.deleteProduct = asyncHandler(async (req, res, next) => {
   const product = await Product.findByIdAndDelete(req.params.id);
 
   if (!product) {
-    res.status(404);
-    throw new Error("Product not found");
+    return next(new AppError("Product not found", 404));
   }
 
   res.status(200).json({
-    success: true,
-    data: {},
+    status: "success",
+    message: "Product deleted successfully",
+    data: null,
   });
 });
